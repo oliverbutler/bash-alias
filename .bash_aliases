@@ -93,6 +93,9 @@ alias lldr='ls -alhtr'                                                          
 alias lldc='ls -alhtU'                                                          # List files by date created
 alias lldcr='ls -alhtUr'                                                        # List files by date created (reverse)
 h() { history | grep "$1"; }                                                    # Shorthand for `history` with added grepping
+hr() {                                                                          # History recent
+    history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
+}
 alias perm="stat -f '%Lp'"                                                      # View the permissions of a file/dir as a number
 alias mkdir='mkdir -pv'                                                         # Make parent directories if needed
 alias tree="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"             # List the file structure of the current directory
@@ -105,9 +108,10 @@ dirdiff() { diff -u <( ls "$1" | sort)  <( ls "$2" | sort ); }                  
 alias edithosts='code /etc/hosts'                                               # Edit hosts file
 alias editbash='code ~/.bash_profile'                                           # Edit bash profile
 alias editsshconfig='code ~/.ssh/config'                                        # Edit ssh config file
+alias editaliases='code ~/projects/linux-custom/.bash_aliases'
 
 # Navigation                                                               
-alias i="cd ~/iCloud"                                                           # Go to iCloud directory
+alias i="clear && cd ~/iCloud && ls"                                                           # Go to iCloud directory
 alias ..='cl ..'
 alias ...='cl ../../'
 alias ....='cl ../../../'
@@ -117,6 +121,8 @@ alias .......='cl ../../../../../'
 alias ........='cl ../../../../../../'
 alias home='clear && cd ~ && ls'                                                # Home directory
 alias downloads='clear && cd ~/Downloads && ls'                                 # Downloads directory
+alias desktop='clear && cd ~/Desktop $$ ls'
+
 cs() { cd "$@" &&  ls; }                                                        # Enter directory and list contents with ls
 cl() { cd "$@" && ll; }                                                         # Enter directory and list contents with ll
 alias f='open -a Finder ./' 
@@ -156,7 +162,7 @@ alias c='clear'
 
 dir-to-remote() { rsync -avz . $1; }                                            # Copy local files to a remote server
 
-alias update='sudo apt-get update && sudo apt-get upgrade'
+alias update="$HOME/projects/linux-custom/setup.sh $1"
 
 # npm
 alias nrs='npm run start'

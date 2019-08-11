@@ -36,7 +36,7 @@ WHITEB="\[\033[1;37m\]"
 RESET="\[\033[0;0m\]"
 
 # Modify the prompt
-export PS1=$CYAN'\u'$WHITE'@'$BLUE'\h'$WHITE' → '$PURPLE'[\w]\e[0m$(git_color)$(git_branch)\n'$WHITE'\$ '
+export PS1=$CYANB'\u'$WHITE'@'$BLUEB'\h'$WHITE' → '$PURPLE'[\w]\e[0m$(git_color)$(git_branch)\n'$WHITE'\$ '
 
 # Get Git branch of current directory
 git_branch () {
